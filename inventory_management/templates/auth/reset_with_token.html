@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تعيين كلمة المرور الجديدة</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <style>
+    body {
+      background-color: #e9eff4;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 40px; /* هامش علوي افتراضي */
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding-top: 80px; /* هامش أكبر لأجهزة اللابتوب */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- صورة الموقع -->
+  <img src="{{ url_for('static', filename='images/logo.png') }}" alt="شعار الموقع" style="max-width:120px; margin-bottom:20px;">
+
+  <!-- بطاقة إعادة تعيين كلمة المرور -->
+  <div class="card shadow-sm" style="max-width:400px; width:100%;">
+    <div class="card-body text-center">
+      <h4 class="card-title mb-4 fw-bold">تعيين كلمة مرور جديدة</h4>
+
+      <!-- اذا كان هناك خطا فهذا سيظهر -->
+      {% for message in get_flashed_messages() %}
+      <div class="flash alert alert-danger alert-dismissible fade show">{{ message }}</div>
+      {% endfor %}
+
+      <form method="post" novalidate>
+
+      {{ form.hidden_tag() }} {# علشان الحماية من CSRF #}
+
+        <div class="mb-3 text-end">
+        {{ form.password1.label(class_="form-label fw-bold") }}
+        {{ form.password1(
+        class_="form-control "~
+        ("is-invalid" if form.password1.errors else ""), 
+      ) 
+      }}
+        {% for err in form.password1.errors %}
+            <div class="invalid-feedback d-block">
+                {{ err }}
+            </div>
+        {% endfor %}
+        </div>
+        <div class="mb-3 text-end">
+        {{ form.password2.label(class_="form-label fw-bold") }}
+        {{ form.password2(
+        class_="form-control "~
+        ("is-invalid" if form.password2.errors else ""), 
+      ) 
+      }}
+        {% for err in form.password2.errors %}
+            <div class="invalid-feedback d-block">
+                {{ err }}
+            </div>
+        {% endfor %}
+        </div>
+        {{ form.submit(class_="btn btn-primary w-100") }}
+      </form>
+    </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تأكيد البريد الإلكتروني</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<style>
+  body {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      padding-top: 80px;
+    }
+  }
+
+  .confirmation-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+  }
+
+  .site-logo {
+    max-width: 120px;
+    margin-bottom: 20px;
+  }
+
+  .btn-link-custom {
+    text-decoration: none;
+    font-weight: bold;
+    color: #0d6efd;
+  }
+</style>
+</head>
+<body>
+
+  <!-- شعار الموقع -->
+  <img src="{{ url_for('static', filename='images/logo.png') }}" alt="شعار الموقع" class="site-logo">
+
+  <!-- مربع التأكيد -->
+  <div class="confirmation-box mb-5">
+    <h3 class="mb-3 fw-bold">أوشكت على الانتهاء!</h3>
+    <p class="mb-2">
+      تم إرسال رابط التأكيد إلى البريد: <strong>{{ email }}</strong>
+    </p>
+    <p class="text-muted mb-4">
+      يجب على جميع المستخدمين تأكيد بريدهم الإلكتروني لاستخدام الموقع. تحقق من صندوق البريد الخاص بك واضغط على الرابط للمتابعة.
+    </p>
+    <p class="flash alert alert-warning alert-dismissible fade show">
+        ⚠️تنبيه: تحقق من صندوق الرسائل غير المرغوب فيها (Spam) إذا لم تجد الرسالة في صندوق الوارد.
+    </p>
+    <p class="text-muted mb-3">
+      إذا كان هذا البريد خاطئًا أو لم يصل البريد بعد 5 دقائق، 
+      <a href="{{ url_for('auth.register_request',username=username, email=email  ) }}" class="btn-link-custom">اضغط هنا</a>.
+    </p>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>
